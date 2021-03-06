@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import "bootstrap/dist/css/bootstrap.css";
 
 export default function Question(props) {
 
@@ -21,9 +22,9 @@ export default function Question(props) {
                    onChange={(event) =>
                        setUserAnswer(Number(event.target.value))}
                    type="number"
-            />
-            <button onClick={okButtonHandler}> Ok</button>
-            <button onClick={props.getQuestion}> Next</button>
+            /> {' '}
+            <button onClick={okButtonHandler}  type="button" className="btn btn-primary btn-sm"> Ok</button> {' '}
+            <button onClick={props.getQuestion}  type="button" className="btn btn-primary btn-sm"> Next</button> {' '}
         </div>)
 }
 

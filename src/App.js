@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {useState} from "react";
 import Question from "./Question";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
 
@@ -15,8 +16,8 @@ function App() {
         const sign = signs[Math.floor(Math.random() * 3)];
         const secondNumber = Math.floor(Math.random() * 10);
 
-        const newAnswer = [...questions, {serialNumber, firstNumber, sign, secondNumber}]
-        setQuestions(newAnswer)
+        const newQuestions = [...questions, {serialNumber, firstNumber, sign, secondNumber}]
+        setQuestions(newQuestions)
         setSerialNumber(serialNumber + 1);
     }
 
@@ -43,11 +44,14 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div className="p-3 mb-2 bg-info text-dark">
             <h1>Math Quiz</h1>
             <hr/>
 
-            <button disabled={serialNumber !== 1} onClick={getQuestion}> Start</button>
+            <button disabled={serialNumber !== 1}
+                    onClick={getQuestion}
+                    type="button"
+                    className="btn btn-primary btn-sm"> Start</button>
             {questions.map(el => <Question
                 question={el}
                 getAnswer={getAnswer}
