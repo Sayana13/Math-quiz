@@ -40,24 +40,29 @@ function App() {
                 return {...el, rightAnswer, userAnswer: userAnswer};
             return el;
         })
-        setQuestions(newQuestions)
+        setQuestions(newQuestions);
     }
+    //
+    // const score = questions.filter(el => el.rightAnswer === el.userAnswer);
+    // const quiz = questions.length
+    //
 
     return (
         <div className="p-3 mb-2 bg-info text-dark">
             <h1>Math Quiz</h1>
             <hr/>
 
-            <button disabled={serialNumber !== 1}
+            <button disabled={serialNumber > 1}
                     onClick={getQuestion}
                     type="button"
-                    className="btn btn-primary btn-sm"> Start</button>
-            {questions.map(el => <Question
+                    className="btn btn-primary btn-sm"> Start
+            </button>
+            {questions.filter(el => questions[questions.length-1]).map(el => <Question
+                key={el.serialNumber}
                 question={el}
                 getAnswer={getAnswer}
                 getQuestion={getQuestion}
             />)}
-
 
         </div>
     );

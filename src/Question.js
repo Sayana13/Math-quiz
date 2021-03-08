@@ -18,13 +18,24 @@ export default function Question(props) {
             {question.sign} {' '}
             {question.secondNumber} {' '} = {' '}
 
-            <input value={userAnswer}
-                   onChange={(event) =>
-                       setUserAnswer(Number(event.target.value))}
-                   type="number"
-            /> {' '}
-            <button onClick={okButtonHandler}  type="button" className="btn btn-primary btn-sm"> Ok</button> {' '}
-            <button onClick={props.getQuestion}  type="button" className="btn btn-primary btn-sm"> Next</button> {' '}
+            {!question.userAnswer &&
+                <>
+                    <input value={userAnswer}
+                           onChange={(event) =>
+                               setUserAnswer(Number(event.target.value))}
+                           type="number"
+                    /> {' '}
+                    <button onClick={okButtonHandler} type="button" className="btn btn-primary btn-sm"> Ok</button>
+                    {' '}
+                </>
+            }
+            {question.userAnswer}
+
+            <button onClick={props.getQuestion}
+                    disabled={!props.question.userAnswer}
+                    type="button" className="btn btn-primary btn-sm"> Next
+            </button>
+            {' '}
         </div>)
 }
 
