@@ -32,7 +32,7 @@ export default function Question(props) {
             {question.userAnswer}
 
             <button onClick={props.getQuestion}
-                    disabled={!props.question.userAnswer}
+                    disabled={props.question.userAnswer === undefined}
                     type="button" className="btn btn-primary btn-sm"> Next
             </button>
             {' '}

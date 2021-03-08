@@ -1,14 +1,16 @@
 import React from 'react';
 import './App.css';
-import {useState} from "react";
+import {useEffect,useState} from "react";
 import Question from "./Question";
 import "bootstrap/dist/css/bootstrap.css";
+
 
 function App() {
 
     const signs = ["+", "-", "*"];
     const [questions, setQuestions] = useState([]);
     const [serialNumber, setSerialNumber] = useState(1);
+    const [score, setScore] = useState(0);
 
 
     const getQuestion = () => {
@@ -42,22 +44,33 @@ function App() {
         })
         setQuestions(newQuestions);
     }
-    //
-    // const score = questions.filter(el => el.rightAnswer === el.userAnswer);
-    // const quiz = questions.length
-    //
+    const getResult = () => {
+        const newScore = questions.map(el => {
+            if (el.rightAnswer === el.userAnswer) return 1;
+            return 0;
+                }).reduce((acc, curr) => acc + curr, 0);
+        setScore(newScore);
+    }
+    console.log( 'Score here', score);
+
+    const quizLength = 5;
+    useEffect(() => {
+        if(quizLength === questions.length && questions[questions.length-1].userAnswer !== undefined) {
+            getResult();
+        }
+    }, [serialNumber])
 
     return (
         <div className="p-3 mb-2 bg-info text-dark">
             <h1>Math Quiz</h1>
             <hr/>
 
-            <button disabled={serialNumber > 1}
+            <button disabled={serialNumber !== 1}
                     onClick={getQuestion}
                     type="button"
                     className="btn btn-primary btn-sm"> Start
             </button>
-            {questions.filter(el => questions[questions.length-1]).map(el => <Question
+            {questions.filter((el, i) => i === questions.length - 1).map(el => <Question
                 key={el.serialNumber}
                 question={el}
                 getAnswer={getAnswer}
