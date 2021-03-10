@@ -3,22 +3,22 @@ import "bootstrap/dist/css/bootstrap.css";
 
 export default function Question(props) {
 
-    const {question} = props;
+    const {el} = props;
     const [userAnswer, setUserAnswer] = useState('');
 
     const okButtonHandler = () => {
-        props.getAnswer(question.serialNumber, userAnswer)
+        props.getAnswer(el.serialNumber, userAnswer)
         setUserAnswer('')
     }
 
     return (
-        <div key={question.serialNumber}>
-            {question.serialNumber}){' '}
-            {question.firstNumber} {' '}
-            {question.sign} {' '}
-            {question.secondNumber} {' '} = {' '}
+        <div key={el.serialNumber}>
+            {el.serialNumber}){' '}
+            {el.firstNumber} {' '}
+            {el.sign} {' '}
+            {el.secondNumber} {' '} = {' '}
 
-            {!question.userAnswer &&
+            {el.userAnswer === undefined &&
                 <>
                     <input value={userAnswer}
                            onChange={(event) =>
@@ -29,10 +29,10 @@ export default function Question(props) {
                     {' '}
                 </>
             }
-            {question.userAnswer}
+            {el.userAnswer}
 
             <button onClick={props.getQuestion}
-                    disabled={props.question.userAnswer === undefined}
+                    disabled={props.el.userAnswer === undefined}
                     type="button" className="btn btn-primary btn-sm"> Next
             </button>
             {' '}
